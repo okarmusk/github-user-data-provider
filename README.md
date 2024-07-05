@@ -1,1 +1,1 @@
-# github-user-supplier-for-empik
+# github-user-provider-for-empik
