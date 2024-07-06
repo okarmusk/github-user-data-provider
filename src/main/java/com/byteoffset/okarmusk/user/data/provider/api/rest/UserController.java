@@ -23,8 +23,8 @@ public class UserController {
     @GetMapping("/{login}")
     public ResponseEntity<User> getUser(@PathVariable String login) throws UserException {
         log.info("Getting user data with login: {}", login);
-        var user = service.getUser(login);
+        var optional = service.getUser(login);
 
-        return ResponseEntity.ok(user);
+        return optional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

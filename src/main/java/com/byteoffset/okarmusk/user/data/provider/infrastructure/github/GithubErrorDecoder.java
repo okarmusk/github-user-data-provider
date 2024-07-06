@@ -7,6 +7,10 @@ public class GithubErrorDecoder implements ErrorDecoder {
 
     @Override
     public Exception decode(String methodKey, feign.Response response) {
+        if (response.status() == 404) {
+            return new GithubUserNotFoundException("User not found");
+        }
+
         if (response.status() != 200) {
             return new GithubApiException("Cannot reach github API, returned response status: " + response.status());
         }

@@ -5,5 +5,5 @@ import feign.RequestLine;
 
 public interface GithubApiClient {
     @RequestLine("GET /users/{login}")
-    GithubUser getUser(@Param("login") String login) throws GithubApiException;
+    GithubUser getUser(@Param("login") String login) throws GithubApiException, GithubUserNotFoundException;
 }

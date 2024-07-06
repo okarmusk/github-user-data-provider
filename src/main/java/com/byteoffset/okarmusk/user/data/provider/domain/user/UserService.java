@@ -2,6 +2,8 @@ package com.byteoffset.okarmusk.user.data.provider.domain.user;
 
 import lombok.NonNull;
 
+import java.util.Optional;
+
 public interface UserService {
-    User getUser(@NonNull String login) throws UserException;
+    Optional<User> getUser(@NonNull String login) throws UserException;
 }
