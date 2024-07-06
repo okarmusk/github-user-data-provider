@@ -1,5 +1,7 @@
 package com.byteoffset.okarmusk.user.data.provider.domain.user;
 
+import lombok.NonNull;
+
 public interface UserService {
-    User getUser(String login) throws UserException;
+    User getUser(@NonNull String login) throws UserException;
 }
