@@ -1,4 +1,4 @@
-# github-user-provider-for-empik
+# github-user-provider for Empik
 
 ## Requirements
 To run the application you need to have installed:
@@ -11,4 +11,12 @@ To run the application you need to have installed:
 Please start needed containers by running the following command:
 ```
 docker compose up -d
+```
+Next build the application by running the following command:
+```
+./gradlew clean buid
+```
+Finally, run the application by running the following command:
+```
+./gradlew bootRun
 ```

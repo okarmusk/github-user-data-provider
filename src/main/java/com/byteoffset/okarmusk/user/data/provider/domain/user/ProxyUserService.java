@@ -26,17 +26,24 @@ public class ProxyUserService implements UserService {
     public Optional<User> getUser(@NonNull String login) throws UserException {
         try {
             var githubUser = githubApiClient.getUser(login);
+            log.info("Received user data from Github API for {}", login);
 
             if (userRequestStatisticRepository.findByLogin(login).isPresent()) {
                 userRequestStatisticRepository.incrementRequestStatistic(login);
+                log.info("Incremented request count for {}", login);
             } else {
                 userRequestStatisticRepository.save(new UserRequestStatisticEntity(login, 1));
+                log.info("Added new user request statistic for {}", login);
             }
 
             return Optional.of(mapToUser(githubUser));
         } catch (GithubUserNotFoundException e) {
+            log.warn("User {} not found in Github API", login);
+
             return Optional.empty();
         } catch (GithubApiException e) {
+            log.error("Error while fetching user data from Github API", e);
+
             throw new UserException(e.getMessage());
         }
     }

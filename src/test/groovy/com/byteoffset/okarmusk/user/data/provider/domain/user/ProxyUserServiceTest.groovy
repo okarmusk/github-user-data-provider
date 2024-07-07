@@ -39,7 +39,7 @@ class ProxyUserServiceTest extends Specification {
         optional.isEmpty()
     }
 
-    def "should return expected user when api returned response with user"() {
+    def "should return expected user when api returned response with user and not user in statistics"() {
         given:
         GithubUser githubUser = createGithubUser(LOGIN)
         1 * githubApiClientMock.getUser(LOGIN) >> githubUser
@@ -62,6 +62,8 @@ class ProxyUserServiceTest extends Specification {
         user.calculations() == String.valueOf(expectedCalculations)
         1 * userRequestStatisticRepositoryMock.save(new UserRequestStatisticEntity(LOGIN, 1))
     }
+
+    // TODO: Add test for case when user is already in database
 
     def "should throw exception when communication with api appeared"() {
         given:

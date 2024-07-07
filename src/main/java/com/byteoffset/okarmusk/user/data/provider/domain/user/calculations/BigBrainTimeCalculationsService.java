@@ -3,7 +3,7 @@ package com.byteoffset.okarmusk.user.data.provider.domain.user.calculations;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EmpikTechCalculationsService implements CalculationsService {
+public class BigBrainTimeCalculationsService implements CalculationsService {
     public static final double A = 6.0;
     public static final int B = 2;
 

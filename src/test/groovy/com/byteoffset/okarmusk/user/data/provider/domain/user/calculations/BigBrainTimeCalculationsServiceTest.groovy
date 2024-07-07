@@ -3,11 +3,11 @@ package com.byteoffset.okarmusk.user.data.provider.domain.user.calculations
 
 import spock.lang.Specification
 
-class EmpikTechCalculationsServiceTest extends Specification {
-    private EmpikTechCalculationsService service
+class BigBrainTimeCalculationsServiceTest extends Specification {
+    private BigBrainTimeCalculationsService service
 
     def setup() {
-        service = new EmpikTechCalculationsService()
+        service = new BigBrainTimeCalculationsService()
     }
 
     // I assumed that when numberOfFollowers equals 0 then method should return 0
@@ -21,10 +21,10 @@ class EmpikTechCalculationsServiceTest extends Specification {
 
     def "should return result bigger by B when numberOfFollowers equals A"(int numberOfPublicRepositories) {
         given:
-        def expected = EmpikTechCalculationsService.B + numberOfPublicRepositories
+        def expected = BigBrainTimeCalculationsService.B + numberOfPublicRepositories
 
         when:
-        def result = service.calculate(EmpikTechCalculationsService.A as int, numberOfPublicRepositories)
+        def result = service.calculate(BigBrainTimeCalculationsService.A as int, numberOfPublicRepositories)
 
         then:
         result == expected

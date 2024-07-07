@@ -15,5 +15,5 @@ public interface UserRequestStatisticRepository extends JpaRepository<UserReques
     @Transactional
     @Query(value = "UPDATE UserRequestStatisticEntity SET requestCount = requestCount + 1 WHERE login = :login")
     @Modifying
-    int incrementRequestStatistic(String login);
+    void incrementRequestStatistic(String login);
 }
