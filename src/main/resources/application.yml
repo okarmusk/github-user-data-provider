@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: user.data.provider
+  datasource:
+    url: jdbc:postgresql://localhost:5432/user_statistics
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+github:
+  api:
+    url: https://api.github.com

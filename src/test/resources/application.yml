@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: user.data.provider
+  datasource:
+    url: jdbc:h2:mem:user_stats;DB_CLOSE_DELAY=-1
+    username: sa
+    password: sa
+    driver-class-name: org.h2.Driver
+github:
+  api:
+    url: https://api.github.com
