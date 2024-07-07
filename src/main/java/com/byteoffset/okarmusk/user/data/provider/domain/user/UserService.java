@@ -5,5 +5,5 @@ import lombok.NonNull;
 import java.util.Optional;
 
 public interface UserService {
-    Optional<User> getUser(@NonNull String login) throws UserException;
+    Optional<User> getUser(@NonNull String login);
 }

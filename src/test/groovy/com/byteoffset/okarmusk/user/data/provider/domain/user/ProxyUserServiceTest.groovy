@@ -39,7 +39,7 @@ class ProxyUserServiceTest extends Specification {
         optional.isEmpty()
     }
 
-    def "should return expected user when api returned response with user and not user in statistics"() {
+    def "should return user when api return proper response and user doesn't exist in db"() {
         given:
         GithubUser githubUser = createGithubUser(LOGIN)
         1 * githubApiClientMock.getUser(LOGIN) >> githubUser
@@ -63,7 +63,30 @@ class ProxyUserServiceTest extends Specification {
         1 * userRequestStatisticRepositoryMock.save(new UserRequestStatisticEntity(LOGIN, 1))
     }
 
-    // TODO: Add test for case when user is already in database
+    def "should return user when api return proper response and user already exists in db"() {
+        given:
+        GithubUser githubUser = createGithubUser(LOGIN)
+        1 * githubApiClientMock.getUser(LOGIN) >> githubUser
+        1 * userRequestStatisticRepositoryMock.findByLogin(LOGIN) >>
+                Optional.of(new UserRequestStatisticEntity(LOGIN, 21))
+        double expectedCalculations = 123.0
+        1 * calculationsServiceMock.calculate(githubUser.followers, githubUser.publicRepos) >> expectedCalculations
+
+        when:
+        def optional = service.getUser(LOGIN)
+
+        then:
+        optional.isPresent()
+        def user = optional.get()
+        user.login() == LOGIN
+        user.id() == String.valueOf(githubUser.id)
+        user.name() == githubUser.name
+        user.type() == githubUser.type
+        user.avatarUrl() == githubUser.avatarUrl
+        user.createdAt() == githubUser.createdAt
+        user.calculations() == String.valueOf(expectedCalculations)
+        1 * userRequestStatisticRepositoryMock.incrementRequestStatistic(LOGIN)
+    }
 
     def "should throw exception when communication with api appeared"() {
         given:
@@ -75,7 +98,7 @@ class ProxyUserServiceTest extends Specification {
         service.getUser(LOGIN)
 
         then:
-        thrown(UserException)
+        thrown(ExternalApiUnavailableException)
     }
 
     private static GithubUser createGithubUser(String login) {

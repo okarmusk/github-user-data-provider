@@ -1,6 +1,7 @@
 package com.byteoffset.okarmusk.user.data.provider.api.rest;
 
 import com.byteoffset.okarmusk.user.data.provider.infrastructure.github.GithubApiClient;
+import com.byteoffset.okarmusk.user.data.provider.infrastructure.github.GithubApiException;
 import com.byteoffset.okarmusk.user.data.provider.infrastructure.github.GithubUser;
 import com.byteoffset.okarmusk.user.data.provider.infrastructure.github.GithubUserNotFoundException;
 import org.junit.jupiter.api.Test;
@@ -50,6 +51,17 @@ public class UserControllerTest {
         mockMvc.perform(get(url))
                 .andDo(print())
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void shouldReturn503IfGithubApiExceptionAppear() throws Exception {
+        when(githubApiClient.getUser(any()))
+                .thenThrow(GithubApiException.class);
+
+        var url = String.format("/users/%s", GITHUB_LOGIN);
+        mockMvc.perform(get(url))
+                .andDo(print())
+                .andExpect(status().isServiceUnavailable());
     }
 
     private static GithubUser createGithubUser(String login) {

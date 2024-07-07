@@ -1,7 +1,6 @@
 package com.byteoffset.okarmusk.user.data.provider.api.rest;
 
 import com.byteoffset.okarmusk.user.data.provider.domain.user.User;
-import com.byteoffset.okarmusk.user.data.provider.domain.user.UserException;
 import com.byteoffset.okarmusk.user.data.provider.domain.user.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,10 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     private final UserService service;
 
-    // TODO: add validation
-    // TODO: add error handling
     @GetMapping("/{login}")
-    public ResponseEntity<User> getUser(@PathVariable String login) throws UserException {
+    public ResponseEntity<User> getUser(@PathVariable String login) {
         log.info("Getting user data with login: {}", login);
         var optional = service.getUser(login);
 

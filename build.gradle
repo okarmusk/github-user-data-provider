@@ -10,7 +10,7 @@ version = '0.0.1-SNAPSHOT'
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
+		languageVersion = JavaLanguageVersion.of(21)
 	}
 }
 
@@ -24,26 +24,35 @@ repositories {
 	mavenCentral()
 }
 
+def postgresqlVersion = "42.7.3"
+def feignVersion = "13.3"
+def jacksonVersion = "2.17.2"
+def flywayVersion = "10.15.2"
+def groovyVersion = "4.0.22"
+def h2Version = "2.2.224"
+def cglibVersion = "3.3.0"
+def objenesisVersion = "3.4"
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation group: 'org.postgresql', name: 'postgresql', version: '42.7.3'
-	implementation group: 'io.github.openfeign', name: 'feign-core', version: '13.3'
-	implementation group: 'io.github.openfeign', name: 'feign-jackson', version: '13.3'
-	implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.17.2'
-	implementation group: 'org.flywaydb', name: 'flyway-core', version: '10.15.2'
-	runtimeOnly group: 'org.flywaydb', name: 'flyway-database-postgresql', version: '10.15.2'
+	implementation group: 'org.postgresql', name: 'postgresql', version: postgresqlVersion
+	implementation group: 'io.github.openfeign', name: 'feign-core', version: feignVersion
+	implementation group: 'io.github.openfeign', name: 'feign-jackson', version: feignVersion
+	implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: jacksonVersion
+	implementation group: 'org.flywaydb', name: 'flyway-core', version: flywayVersion
+	runtimeOnly group: 'org.flywaydb', name: 'flyway-database-postgresql', version: flywayVersion
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
 	// Test dependencies
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testCompileOnly group: 'org.apache.groovy', name: 'groovy', version: '4.0.8'
-	testImplementation 'org.spockframework:spock-core:2.4-M1-groovy-4.0'
-	testImplementation group: 'cglib', name: 'cglib', version: '3.3.0'
-	testImplementation group: 'org.objenesis', name: 'objenesis', version: '3.3'
+	testCompileOnly group: 'org.apache.groovy', name: 'groovy', version: groovyVersion
+	testImplementation 'org.spockframework:spock-core:2.4-M4-groovy-4.0'
+	testImplementation group: 'cglib', name: 'cglib', version: cglibVersion
+	testImplementation group: 'org.objenesis', name: 'objenesis', version: objenesisVersion
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-	testImplementation group: 'com.h2database', name: 'h2', version: '2.2.224'
+	testImplementation group: 'com.h2database', name: 'h2', version: h2Version
 }
 
 tasks.named('test') {

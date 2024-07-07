@@ -23,7 +23,7 @@ public class ProxyUserService implements UserService {
     private final UserRequestStatisticRepository userRequestStatisticRepository;
 
     @Override
-    public Optional<User> getUser(@NonNull String login) throws UserException {
+    public Optional<User> getUser(@NonNull String login) {
         try {
             var githubUser = githubApiClient.getUser(login);
             log.info("Received user data from Github API for {}", login);
@@ -44,7 +44,7 @@ public class ProxyUserService implements UserService {
         } catch (GithubApiException e) {
             log.error("Error while fetching user data from Github API", e);
 
-            throw new UserException(e.getMessage());
+            throw new ExternalApiUnavailableException(e.getMessage());
         }
     }
 

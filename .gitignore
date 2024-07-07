@@ -29,3 +29,5 @@ replay_pid*
 # gradle junk files
 build
 .gradle
+
+!gradle-wrapper.jar
