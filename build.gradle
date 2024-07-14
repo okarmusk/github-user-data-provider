@@ -32,6 +32,7 @@ def groovyVersion = "4.0.22"
 def h2Version = "2.2.224"
 def cglibVersion = "3.3.0"
 def objenesisVersion = "3.4"
+def resilience4jVersion = "2.2.0"
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -39,6 +40,8 @@ dependencies {
 	implementation group: 'org.postgresql', name: 'postgresql', version: postgresqlVersion
 	implementation group: 'io.github.openfeign', name: 'feign-core', version: feignVersion
 	implementation group: 'io.github.openfeign', name: 'feign-jackson', version: feignVersion
+	implementation group: 'io.github.resilience4j', name: 'resilience4j-all', version: resilience4jVersion
+	implementation group: 'io.github.resilience4j', name: 'resilience4j-feign', version: resilience4jVersion
 	implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: jacksonVersion
 	implementation group: 'org.flywaydb', name: 'flyway-core', version: flywayVersion
 	runtimeOnly group: 'org.flywaydb', name: 'flyway-database-postgresql', version: flywayVersion
